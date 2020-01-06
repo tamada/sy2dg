@@ -1,7 +1,5 @@
 package sy2dg
 
-import "strings"
-
 /*
 Semester shows semester of lecture.
 */
@@ -169,8 +167,4 @@ func (sd *SyllabusData) IsAfterOf(other *SyllabusData) bool {
 		return result == After
 	}
 	return sd.Grade > other.Grade
-}
-
-func (sd *SyllabusData) containsLectureName(name string) bool {
-	return strings.Contains(sd.Outline, name) || strings.Contains(sd.SpecialNotes, name)
 }

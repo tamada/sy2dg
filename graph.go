@@ -50,10 +50,14 @@ func sortAndUniq(slice []int) []int {
 	return results
 }
 
+func (sd *SyllabusData) containsLectureName(name string) bool {
+	return strings.Contains(sd.Outline, name) || strings.Contains(sd.SpecialNotes, name)
+}
+
 func findRelations(syllabus *SyllabusData, names []*syllabusName) []int {
 	results := []int{}
 	for _, nai := range names {
-		if strings.Contains(syllabus.Outline, nai.name) || strings.Contains(syllabus.SpecialNotes, nai.name) {
+		if syllabus.containsLectureName(nai.name) {
 			results = append(results, nai.index)
 		}
 	}
