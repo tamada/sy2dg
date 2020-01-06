@@ -1,7 +1,6 @@
 package sy2dg
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"path/filepath"
@@ -68,6 +67,6 @@ func (sb *SyllabusBuilder) ReadSyllabuses(dir string) []*SyllabusData {
 		return err
 	})
 	slice := convertToSlice(syllabuses)
-	fmt.Fprintf(os.Stderr, "read %d syllabuses\n", len(slice))
+	// fmt.Fprintf(os.Stderr, "read %d syllabuses\n", len(slice))
 	return slice
 }

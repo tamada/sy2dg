@@ -142,29 +142,3 @@ func (s Semester) String() string {
 		return "不明"
 	}
 }
-
-func (sd *SyllabusData) IsSameSemester(other *SyllabusData) bool {
-	return sd.Grade == other.Grade && sd.Semester.CompareTo(other.Semester) == SameSemester
-}
-
-func (sd *SyllabusData) IsPreviousOf(other *SyllabusData) bool {
-	if sd.Grade == other.Grade {
-		result := sd.Semester.CompareTo(other.Semester)
-		if result == SameSemester {
-			return sd.ID < other.ID
-		}
-		return result == Before
-	}
-	return sd.Grade < other.Grade
-}
-
-func (sd *SyllabusData) IsAfterOf(other *SyllabusData) bool {
-	if sd.Grade == other.Grade {
-		result := sd.Semester.CompareTo(other.Semester)
-		if result == SameSemester {
-			return sd.ID > other.ID
-		}
-		return result == After
-	}
-	return sd.Grade > other.Grade
-}
