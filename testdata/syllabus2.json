@@ -1,0 +1,10 @@
+{
+    "ID": "2",
+    "lecture-name": "発展プログラミング演習",
+    "teacher-names": ["玉田　春昭","林原　尚浩","宮森　恒"],
+    "grade": 2,
+    "semester": "春学期",
+    "credit": 2,
+    "outline": "outline of advanced programming",
+    "special-notes": "special notes of advanced programming"
+}

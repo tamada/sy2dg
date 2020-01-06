@@ -1,0 +1,11 @@
+{
+    "ID": "1",
+    "lecture-name": "ソフトウェア工学I",
+    "teacher-names": ["玉田　春昭"],
+    "grade": 2,
+    "semester": "秋学期",
+    "credit": 2,
+    "outline": "outline of software engineering I",
+    "special-notes": "special notes of software engineering I",
+    "extra-item": "this entry will be ignored."
+}

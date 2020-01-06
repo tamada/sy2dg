@@ -1,0 +1,4 @@
+{
+    "ID": 3,
+    "message": "this json file is invalid, because, this line ends with comma (,). In json, final entry ends with no comma.",
+}
