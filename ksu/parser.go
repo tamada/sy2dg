@@ -12,16 +12,22 @@ import (
 )
 
 /*
-KSUHTMLParser parses syllabuses of KSU.
+HTMLParser parses syllabuses of KSU.
 */
-type KSUHTMLParser struct {
+type HTMLParser struct {
 }
 
-func NewKSUHTMLParser() *KSUHTMLParser {
-	return new(KSUHTMLParser)
+/*
+NewHTMLParser generates an instance of sy2dg.Parser for parsing syllabuses of KSU formatted in HTML.
+*/
+func NewHTMLParser() *HTMLParser {
+	return new(HTMLParser)
 }
 
-func (parser *KSUHTMLParser) Parse(reader io.Reader, fileName string) (*sy2dg.SyllabusData, error) {
+/*
+Parse parses syllabus and returns generated SyllabusData.
+*/
+func (parser *HTMLParser) Parse(reader io.Reader, fileName string) (*sy2dg.SyllabusData, error) {
 	root, err := xmlpath.ParseHTML(reader)
 	if err != nil {
 		return nil, err

@@ -5,17 +5,27 @@ import (
 	"strconv"
 )
 
+/*
+DataSet specifies the graph of syllabuses for visualization.
+*/
 type DataSet struct {
 	Nodes []Node `json:"nodes"`
 	Edges []Edge `json:"edges"`
 }
 
+/*
+Edge shows an edge of a syllabuses graph for visualization.
+*/
 type Edge struct {
 	Source string `json:"source"`
 	Target string `json:"target"`
 	Weight int    `json:"weight"`
 	Arrows string `json:"arrows"`
 }
+
+/*
+Node shows an node of a syllabuses graph for visualization.
+*/
 type Node struct {
 	Name         string        `json:"name"`
 	Group        string        `json:"group"`
@@ -154,6 +164,7 @@ func newNode(syllabus *SyllabusData) *Node {
 		TeacherNames: syllabus.TeacherNames,
 	}
 }
+
 func toNodeSlice(syllabuses []*SyllabusData) []Node {
 	results := []Node{}
 	for _, syllabus := range syllabuses {
