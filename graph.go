@@ -3,20 +3,29 @@ package sy2dg
 import (
 	"sort"
 	"strconv"
-	"strings"
 )
 
+/*
+DataSet specifies the graph of syllabuses for visualization.
+*/
 type DataSet struct {
 	Nodes []Node `json:"nodes"`
 	Edges []Edge `json:"edges"`
 }
 
+/*
+Edge shows an edge of a syllabuses graph for visualization.
+*/
 type Edge struct {
 	Source string `json:"source"`
 	Target string `json:"target"`
 	Weight int    `json:"weight"`
 	Arrows string `json:"arrows"`
 }
+
+/*
+Node shows an node of a syllabuses graph for visualization.
+*/
 type Node struct {
 	Name         string        `json:"name"`
 	Group        string        `json:"group"`
@@ -50,16 +59,6 @@ func sortAndUniq(slice []int) []int {
 	return results
 }
 
-func findRelations(syllabus *SyllabusData, names []*syllabusName) []int {
-	results := []int{}
-	for _, nai := range names {
-		if strings.Contains(syllabus.Outline, nai.name) || strings.Contains(syllabus.SpecialNotes, nai.name) {
-			results = append(results, nai.index)
-		}
-	}
-	return sortAndUniq(results)
-}
-
 func createEdge(s []*SyllabusData, si, ti int) Edge {
 	if s[si].IsSameSemester(s[ti]) {
 		if s[si].ID < s[ti].ID {
@@ -70,10 +69,10 @@ func createEdge(s []*SyllabusData, si, ti int) Edge {
 	if s[si].IsPreviousOf(s[ti]) && !s[si].IsAfterOf(s[ti]) {
 		return Edge{Source: s[si].ID, Target: s[ti].ID, Arrows: "to"}
 	}
-	return Edge{Source: s[ti].ID, Target: s[ti].ID, Arrows: "to"}
+	return Edge{Source: s[ti].ID, Target: s[si].ID, Arrows: "to"}
 }
 
-func ContainsEdge(edges []Edge, edge Edge) bool {
+func containsEdge(edges []Edge, edge Edge) bool {
 	for _, e := range edges {
 		if e.Source == edge.Source && e.Target == edge.Target {
 			return true
@@ -82,7 +81,7 @@ func ContainsEdge(edges []Edge, edge Edge) bool {
 	return false
 }
 
-func countUp(edge Edge, sources []Edge) int {
+func countAppearanceInSources(edge Edge, sources []Edge) int {
 	count := 0
 	for _, e := range sources {
 		if e.Source == edge.Source && e.Target == edge.Target {
@@ -92,9 +91,9 @@ func countUp(edge Edge, sources []Edge) int {
 	return count
 }
 
-func countUpValue(results []Edge, sources []Edge) []Edge {
+func plumpEdges(results []Edge, sources []Edge) []Edge {
 	for i, source := range results {
-		count := countUp(source, sources)
+		count := countAppearanceInSources(source, sources)
 		results[i].Weight = count
 	}
 	return results
@@ -102,11 +101,21 @@ func countUpValue(results []Edge, sources []Edge) []Edge {
 func removeDuplicationAndSelfDirection(edges []Edge) []Edge {
 	results := []Edge{}
 	for _, edge := range edges {
-		if edge.Source != edge.Target && !ContainsEdge(results, edge) {
+		if edge.Source != edge.Target && !containsEdge(results, edge) {
 			results = append(results, edge)
 		}
 	}
-	return countUpValue(results, edges)
+	return plumpEdges(results, edges)
+}
+
+func findRelations(syllabus *SyllabusData, names []*syllabusName) []int {
+	results := []int{}
+	for _, nai := range names {
+		if syllabus.containsLectureName(nai.name) {
+			results = append(results, nai.index)
+		}
+	}
+	return sortAndUniq(results)
 }
 
 func createEdges(syllabuses []*SyllabusData, names []*syllabusName) []Edge {
@@ -155,6 +164,7 @@ func newNode(syllabus *SyllabusData) *Node {
 		TeacherNames: syllabus.TeacherNames,
 	}
 }
+
 func toNodeSlice(syllabuses []*SyllabusData) []Node {
 	results := []Node{}
 	for _, syllabus := range syllabuses {
@@ -167,10 +177,13 @@ func toNodeSlice(syllabuses []*SyllabusData) []Node {
 	return results
 }
 
-func MakeGraph(syllabuses []*SyllabusData) *DataSet {
+/*
+NewDataSet builds an instance of DataSet.
+*/
+func NewDataSet(syllabuses []*SyllabusData) *DataSet {
 	names := extractLectureNamesAndTheirAliases(syllabuses)
 	edges := createEdges(syllabuses, names)
 	ds := &DataSet{Nodes: toNodeSlice(syllabuses), Edges: edges}
-	// ds.updateWeight()
+	// plumpNodes(ds)
 	return ds
 }

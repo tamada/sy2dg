@@ -41,7 +41,7 @@ dist: build
 	@$(call _createDist,linux,386)
 
 run: build
-	go run cmd/sy2dg/main.go --url=https:/syllabus.kyoto-su.ac.jp/syllabus/html/2019/ data/cse_ksu
+	go run cmd/sy2dg/main.go --url=https:/syllabus.kyoto-su.ac.jp/syllabus/html/2019/ data/cse_ksu | tee docs/dataset.js
 
 install: test build
 	$(GO) install $(LDFLAGS)

@@ -1,7 +1,5 @@
 package sy2dg
 
-import "strings"
-
 /*
 Semester shows semester of lecture.
 */
@@ -143,34 +141,4 @@ func (s Semester) String() string {
 	default:
 		return "不明"
 	}
-}
-
-func (sd *SyllabusData) IsSameSemester(other *SyllabusData) bool {
-	return sd.Grade == other.Grade && sd.Semester.CompareTo(other.Semester) == SameSemester
-}
-
-func (sd *SyllabusData) IsPreviousOf(other *SyllabusData) bool {
-	if sd.Grade == other.Grade {
-		result := sd.Semester.CompareTo(other.Semester)
-		if result == SameSemester {
-			return sd.ID < other.ID
-		}
-		return result == Before
-	}
-	return sd.Grade < other.Grade
-}
-
-func (sd *SyllabusData) IsAfterOf(other *SyllabusData) bool {
-	if sd.Grade == other.Grade {
-		result := sd.Semester.CompareTo(other.Semester)
-		if result == SameSemester {
-			return sd.ID > other.ID
-		}
-		return result == After
-	}
-	return sd.Grade > other.Grade
-}
-
-func (sd *SyllabusData) containsLectureName(name string) bool {
-	return strings.Contains(sd.Outline, name) || strings.Contains(sd.SpecialNotes, name)
 }

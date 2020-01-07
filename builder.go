@@ -1,7 +1,6 @@
 package sy2dg
 
 import (
-	"fmt"
 	"os"
 	"path"
 	"path/filepath"
@@ -10,19 +9,28 @@ import (
 	"strings"
 )
 
+/*
+SyllabusBuilder reads syllabuses on the specified directory.
+*/
 type SyllabusBuilder struct {
 	Parser  Parser
 	Pattern *regexp.Regexp
 	BaseURL string
 }
 
+/*
+NewSyllabusBuilder generates an instance of SyllabusBuilder.
+*/
 func NewSyllabusBuilder(parser Parser, patternString, baseURL string) *SyllabusBuilder {
 	pattern := regexp.MustCompile(patternString)
 	return &SyllabusBuilder{Pattern: pattern, Parser: parser, BaseURL: baseURL}
 }
 
-func (ts *SyllabusBuilder) IsTarget(str string) bool {
-	return ts.Pattern.Match([]byte(str))
+/*
+IsTarget returns the specified path is matched with the Pattern in sb.
+*/
+func (sb *SyllabusBuilder) IsTarget(path string) bool {
+	return sb.Pattern.Match([]byte(path))
 }
 
 func (sb *SyllabusBuilder) buildURL(data *SyllabusData, targetPath string) {
@@ -55,6 +63,9 @@ func convertToSlice(s map[string]*SyllabusData) []*SyllabusData {
 	return results
 }
 
+/*
+ReadSyllabuses reads syllabus data located on the specified dir.
+*/
 func (sb *SyllabusBuilder) ReadSyllabuses(dir string) []*SyllabusData {
 	syllabuses := map[string]*SyllabusData{}
 	filepath.Walk(dir, func(targetPath string, info os.FileInfo, err error) error {
@@ -68,6 +79,6 @@ func (sb *SyllabusBuilder) ReadSyllabuses(dir string) []*SyllabusData {
 		return err
 	})
 	slice := convertToSlice(syllabuses)
-	fmt.Fprintf(os.Stderr, "read %d syllabuses\n", len(slice))
+	// fmt.Fprintf(os.Stderr, "read %d syllabuses\n", len(slice))
 	return slice
 }
