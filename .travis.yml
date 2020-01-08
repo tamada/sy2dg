@@ -5,11 +5,11 @@ go:
 env:
     global:
         - GO111MODULE=on
-        - secure: "Cf4QuSKgrQBulMQV0a6ID+rhX2y6UKuZmpq0renPGEMer2FNzVVOe0cQCxyMrBMU6w3bpYMaxo9//38qBzf0Z6Eht0ocS8sNUJCRcA0VdzyqWqK1ftChaVM3804sl/Z7V5ij53IKa7H//7tLQTGQV7XQRsWPvkHVex44wohP898yB+Pjpo56QwbjI9NUfw7NRP22bi52q+jsA8JP+QeYi7chy3LXPBHmCf4ZWCoNh9d7Lo+WDP5U6Mfe2/4vvUPVcJ8huJF7cAmy9r05+DQcKLKpBJjNxI9LBZlTSOlVArLj974iLfRXjqR182UHYMTGhqCGejiCimGNEiCuoOzVgk9JUfm/ssxXjGzv6uZATZsRyCf4SgopTsikEv4SCH/fpfpE7lTARDURaKMl0VRivR10mm92vysfi/hF0/y9FQqeEAxLhMlsPC1Xa0ppGqX+Ne57Aq9aj2Rxa9EU+ik6GqP281RwS6IxnqPUIX7XAnKY6EcYGB2egMuNadISNyomsbZfGEIZ5whogXxxADaC/L/3uT6kW1EJ8gJ6kCwagLc3sI8wcekH/K6exBmC18fDE4sI2DDTBqDfDKv5sE9dWwUcdgKv/PzsJZLOv5QXkpvwyS3aI/zh26PCQp3SGxeN5QZ3tKDAPjiAjNVMeWt7+O4Dp5brVyXmUyuJOwcHVVM="
+        - secure: "N561oVa1fRArXtvUH4j2tREqiv8OtsY2P5Y+KeO7A6Rw3Hwd1YAKMqHf9XJr75V6hEPRhgfOjUGBD1O6IdOLSWObPzR9CTZ12J9MvgcxsfQqzo0m1TSNrQr3NHbFuNrMi/iYnHLar3p6FzlRcMu3HeoWRPTY+JCF3zK/QgCp0/bF4D4OAqZxyHs4AKi2FQ9xBy7NeD+0WHnasX3XVMGOMHxIX4FsJqkgLdB+LeVSHkz5Yjviv0j1NsgXVEVD4L5uyGKif4iYVg1UXDMhJ369/FBlU3mtkQ/6rVW0a+/K+ntv7Zu87LrNFoghdIbCqQGJDTUF0+OCMdxEVoy9QHaqeuHF4pU/o61mDRXqxzttqSOA2piLIx7/PBSFjkspqovdd9lcHBr270vN0zQ3sxpRewhM9mcZ+3YaPc0QqydPHXgiO7Ytv6FikY192FAbXO62v+Xvw23sqFyA7dxNJNGu49oEqwFC8KBPLMBWpp7dIghhCObpV2R1ZKxS4fuxiAkQv9nXAhg4QMnz+ru0/V7IyVatArCEeXSZKhHuFzJeDnl7M1PuMc3ix91LrrfZ6xYgIia2edzRX4w+Vp5e077NF1TqEW9gJI6t0qW0lYQqATR0UVBKVkwD7LpZX8J9NLjgp0N874burKtkB5yqIH4EmB93KB/klosP6Sfc4kaXRH8="
 
 before_script:
     - go get github.com/mattn/goveralls
 
 script:
     - make test build
-    - $GOPATH/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+    - $GOPATH/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken=$COVERALLS_TOKEN
