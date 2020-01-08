@@ -57,17 +57,17 @@ func getHelpMessage(prog string) string {
 %s [OPTIONS] <SYLLABUSES_DIR>
 OPTIONS
     -h, --help                print this message.
-    -p, --parser=<PARSER>     specifies parser of a syllabus. default is "default".
+    -p, --parser <PARSER>     specifies parser of a syllabus. default is "default".
                               available values are: "default", and "json".
-    -u, --url=<BASE_URL>      specifies the base of URL for syllabus data.
-    -t, --target=<PATTERN>    specifies the pattern of target file name in the SYLLABUSES_DIR.
+    -u, --url <BASE_URL>      specifies the base of URL for syllabus data.
+    -t, --target <PATTERN>    specifies the pattern of target file name in the SYLLABUSES_DIR.
 ARGUMENTS
     SYLLABUSES_DIR            the directory containing the syllabuses data.`, prog, sy2dg.Version, prog)
 }
 
 func buildFlagSet(args []string) (*flag.FlagSet, *options) {
 	opts := new(options)
-	flags := flag.NewFlagSet("syllabuses2graph", flag.ContinueOnError)
+	flags := flag.NewFlagSet("sy2dg", flag.ContinueOnError)
 	flags.Usage = func() { fmt.Println(getHelpMessage(args[0])) }
 	flags.StringVarP(&opts.pattern, "target", "t", `[0-9]+\.html`, "specifies the pattern of target file name")
 	flags.StringVarP(&opts.parser, "parser", "p", "default", "specifies parser of a syllabus")
@@ -92,7 +92,7 @@ func goMain(args []string) int {
 		return 1
 	}
 	if opts.helpFlag {
-		fmt.Println(getHelpMessage("syllabuses2graph"))
+		fmt.Println(getHelpMessage("sy2dg"))
 		return 0
 	}
 	return perform(opts)

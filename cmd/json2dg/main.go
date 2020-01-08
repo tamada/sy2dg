@@ -21,6 +21,7 @@ func readSyllabuses(opts *options, parser sy2dg.Parser, dir string) []*sy2dg.Syl
 }
 
 func performEach(opts *options, parser sy2dg.Parser, dir string) error {
+
 	syllabuses := readSyllabuses(opts, parser, dir)
 	ds := sy2dg.NewDataSet(syllabuses)
 	json, err := json.Marshal(ds)
@@ -48,15 +49,15 @@ func helpMessage(prog string) string {
 	return fmt.Sprintf(`%s version %s
 %s [OPTIONS] <DIR>
 OPTIONS
-    -t, --target=<PATTERN>    specifies the pattern of target file name in the SYLLABUSES_DIR.
+    -t, --target <PATTERN>    specifies the pattern of target file name in the SYLLABUSES_DIR.
     -h, --help                print this message.
 DIR
-    directory of `, prog, sy2dg.Version, prog)
+    directories contain the json files.`, prog, sy2dg.Version, prog)
 }
 
 func buildFlagSet(args []string) (*flag.FlagSet, *options) {
 	opts := new(options)
-	flags := flag.NewFlagSet("ksu2json", flag.ContinueOnError)
+	flags := flag.NewFlagSet("json2dg", flag.ContinueOnError)
 	flags.Usage = func() { fmt.Println(helpMessage(args[0])) }
 	flags.StringVarP(&opts.pattern, "target", "t", `[0-9]+\.json`, "specifies pattern.")
 	flags.BoolVarP(&opts.helpFlag, "help", "h", false, "print this message")
@@ -68,6 +69,10 @@ func goMain(args []string) int {
 	if err := flagSet.Parse(args); err != nil {
 		fmt.Println(err.Error())
 		return 1
+	}
+	if opts.helpFlag {
+		fmt.Println(helpMessage("json2dg"))
+		return 0
 	}
 	opts.args = flagSet.Args()[1:]
 	return perform(opts)

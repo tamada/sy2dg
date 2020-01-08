@@ -64,10 +64,10 @@ func helpMessage(prog string) string {
 	return fmt.Sprintf(`%s version %s
 %s [OPTIONS] <ARGUMENTS...>
 OPTIONS
-    -d, --dest=<DIR>     specifies destination directory.
+    -d, --dest <DIR>     specifies destination directory.
     -h, --help           print this message.
 ARGUMENTS
-    html syllabus documents.`, prog, sy2dg.Version, prog)
+    syllabus documents in HTML format for the KSU.`, prog, sy2dg.Version, prog)
 }
 
 type options struct {
