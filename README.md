@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/tamada/sy2dg.svg?branch=master)](https://travis-ci.com/tamada/sy2dg)
+[![Coverage Status](https://coveralls.io/repos/github/tamada/sy2dg/badge.svg?branch=master)](https://coveralls.io/github/tamada/sy2dg?branch=master)
 [![codebeat badge](https://codebeat.co/badges/923a4d5e-961c-4eb5-99a8-4601175732b4)](https://codebeat.co/projects/github-com-tamada-sy2dg-master)
 [![License](https://img.shields.io/badge/License-WTFPL-blue.svg)](https://github.com/tamada/syllabuses2graph/blob/master/LICENSE)
 [![Version](https://img.shields.io/badge/Version-1.0.0-yellowgreen.svg)](https://github.com/tamada/syllabuses2graph/releases/tag/v1.0.0)
