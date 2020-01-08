@@ -9,5 +9,4 @@ before_script:
 - go get github.com/mattn/goveralls
 script:
 - make test build
-- "$GOPATH/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken
-  $COVERALLS_TOKEN"
+- "$GOPATH/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN"
