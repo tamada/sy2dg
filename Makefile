@@ -28,7 +28,11 @@ build: setup
 define _createDist
 	mkdir -p dist/$(1)_$(2)/$(DIST)
 	GOOS=$1 GOARCH=$2 go build -o dist/$(1)_$(2)/$(DIST)/$(NAME) cmd/$(NAME)/main.go
+	GOOS=$1 GOARCH=$2 go build -o dist/$(1)_$(2)/$(DIST)/json2dg  cmd/json2dg/main.go
+	GOOS=$1 GOARCH=$2 go build -o dist/$(1)_$(2)/$(DIST)/ksu2json cmd/ksu2json/main.go
 	cp -r data README.md LICENSE dist/$(1)_$(2)/$(DIST)
+	mkdir -p dist/$(1)_$(2)/$(DIST)/djview
+	cp docs/draw_graph_d3.js docs/index.html docs/style.css docs/dataset.js dist/$(1)_$(2)/$(DIST)/djview
 	tar cfz dist/$(DIST)_$(1)_$(2).tar.gz -C dist/$(1)_$(2) $(DIST)
 endef
 
